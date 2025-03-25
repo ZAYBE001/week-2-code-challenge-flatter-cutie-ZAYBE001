@@ -66,3 +66,14 @@ function addVoteFunctionality() {
 
 addVoteFunctionality();
 
+function patchCharacterVotes(characterId, newVotes) {
+    fetch(`http://localhost:3000/characters/${characterId}`, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ votes: newVotes })})
+    .then(res => res.json())
+    .then(updatedCharacter => {console.log('Updated character:', updatedCharacter);})
+    .catch(error => {console.error('Error updating character votes:', error);});
+}
+patchCharacterVotes(characterId, newVotes);
+
