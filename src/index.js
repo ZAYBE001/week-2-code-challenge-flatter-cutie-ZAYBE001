@@ -30,14 +30,16 @@ characterList.addEventListener('click', event => {
 });
 }
 
+let characterId;
 function displayCharacterDetails(character) {
+    characterId=character.id
     let detailDiv = document.getElementById('detailed-info');
     detailDiv.innerHTML = `<h2>${character.name}</h2>
         <p>ID: ${character.id}</p>
         <img src="${character.image}" alt="${character.name}" width="300px"/>
-        <h4>Total Votes: <span id="vote-count">0</span></h4>
+        <h4>Total Votes: <span id="vote-count">${character.votes}</span></h4>
         <form id="votes-form">
-          <input type="text" placeholder="Enter Votes" id="votes" name="votes" />
+          <input type="text" placeholder="Enter Votes" value="" id="votes" name="votes" />
           <input type="submit" value="Add Votes" />
         </form>
         <button id="reset-btn">Reset Votes</button>;`
@@ -53,6 +55,7 @@ function addVoteFunctionality() {
         if (!isNaN(newVotes)) {
             const currentVotes = parseInt(voteCountElement.innerText);
             voteCountElement.innerText = currentVotes + newVotes;
+            patchCharacterVotes(characterId, currentVotes + newVotes);
         }
         votesInput.value = '';
     });
@@ -75,5 +78,5 @@ function patchCharacterVotes(characterId, newVotes) {
     .then(updatedCharacter => {console.log('Updated character:', updatedCharacter);})
     .catch(error => {console.error('Error updating character votes:', error);});
 }
-patchCharacterVotes(characterId, newVotes);
+// patchCharacterVotes(characterId, newVotes);
 
